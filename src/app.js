@@ -32,8 +32,20 @@ function displayTemperature(response) {
 
 }
 
-let apiKey = "45a134233c7cdfc7dd5c67fe467c947d";
-let city = "Seville"
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+function search(city) {
+    let apiKey = "45a134233c7cdfc7dd5c67fe467c947d";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayTemperature);
 
-axios.get(apiUrl).then(displayTemperature);
+}
+
+function handleSubmit(event) {
+    event.preventDefault();
+    let cityInputElement = document.querySelector("#city-input");
+    search(cityInputElement.value);
+}
+
+search("Barcelona");
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
